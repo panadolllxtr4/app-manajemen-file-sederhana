@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Manajemen Penjualan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Aplikasi Manajemen Penjualan</h1>
+
+    <!-- Entri Data Produk -->
+    <div class="section" id="product-section">
+        <h2>Entri Data Produk</h2>
+        <form id="product-form">
+            <label for="product-name">Nama Produk:</label>
+            <input type="text" id="product-name" name="product-name" placeholder="Masukkan nama produk" required>
+
+            <label for="product-category">Kategori:</label>
+            <input type="text" id="product-category" name="product-category" placeholder="Masukkan kategori produk" required>
+
+            <label for="product-price">Harga:</label>
+            <input type="number" id="product-price" name="product-price" placeholder="Masukkan harga produk" required>
+
+            <label for="product-stock">Stok:</label>
+            <input type="number" id="product-stock" name="product-stock" placeholder="Masukkan jumlah stok" required>
+
+            <button type="submit">Simpan Produk</button>
+        </form>
+
+        <!-- Tabel Produk -->
+        <table id="product-table">
+            <thead>
+                <tr>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data produk akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Entri Data Pelanggan -->
+    <div class="section" id="customer-section">
+        <h2>Entri Data Pelanggan</h2>
+        <form id="customer-form">
+            <label for="customer-name">Nama Pelanggan:</label>
+            <input type="text" id="customer-name" name="customer-name" placeholder="Masukkan nama pelanggan" required>
+
+            <label for="customer-contact">Informasi Kontak:</label>
+            <input type="text" id="customer-contact" name="customer-contact" placeholder="Masukkan detail kontak" required>
+
+            <button type="submit">Simpan Pelanggan</button>
+        </form>
+
+        <!-- Tabel Pelanggan -->
+        <table id="customer-table">
+            <thead>
+                <tr>
+                    <th>Nama Pelanggan</th>
+                    <th>Kontak</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data pelanggan akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Entri Transaksi Penjualan -->
+    <div class="section" id="transaction-section">
+        <h2>Transaksi Penjualan</h2>
+        <form id="transaction-form">
+            <label for="transaction-product">Produk:</label>
+            <input type="text" id="transaction-product" name="transaction-product" placeholder="Masukkan nama produk" required>
+
+            <label for="transaction-quantity">Jumlah:</label>
+            <input type="number" id="transaction-quantity" name="transaction-quantity" placeholder="Masukkan jumlah" required>
+
+            <button type="submit">Catat Transaksi</button>
+        </form>
+
+        <!-- Tabel Transaksi -->
+        <table id="transaction-table">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Jumlah</th>
+                    <th>Tanggal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data transaksi akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Laporan Stok Produk -->
+    <div class="section" id="stock-section">
+        <h2>Laporan Stok Produk</h2>
+        <button onclick="showStockReport()">Lihat Laporan Stok</button>
+        <table id="stock-table">
+            <thead>
+                <tr>
+                    <th>Nama Produk</th>
+                    <th>Stok Tersedia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Laporan stok produk akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Laporan Data Pelanggan -->
+    <div class="section" id="customer-report-section">
+        <h2>Laporan Data Pelanggan</h2>
+        <button onclick="showCustomerReport()">Lihat Laporan Pelanggan</button>
+        <table id="customer-report-table">
+            <thead>
+                <tr>
+                    <th>Nama Pelanggan</th>
+                    <th>Kontak</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Laporan pelanggan akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pencarian Produk -->
+    <div class="section" id="search-section">
+        <h2>Cari Informasi Produk</h2>
+        <form id="search-form">
+            <label for="search-product">Cari Nama Produk:</label>
+            <input type="text" id="search-product" name="search-product" placeholder="Masukkan nama produk">
+            <button type="submit">Cari</button>
+        </form>
+
+        <!-- Hasil Pencarian Produk -->
+        <table id="search-result-table">
+            <thead>
+                <tr>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Hasil pencarian produk akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Laporan Rekapitulasi Penjualan -->
+    <div class="section" id="report-section">
+        <h2>Laporan Rekapitulasi Penjualan</h2>
+        <button onclick="generateMonthlyReport()">Rekapitulasi Penjualan Bulanan</button>
+        <button onclick="generateYearlyReport()">Rekapitulasi Penjualan Tahunan</button>
+
+        <!-- Tabel Laporan -->
+        <table id="report-table">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Jumlah Terjual</th>
+                    <th>Waktu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data laporan akan muncul di sini -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    // Simpan dan tampilkan data produk
+    document.getElementById('product-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let productName = document.getElementById('product-name').value;
+        let productCategory = document.getElementById('product-category').value;
+        let productPrice = document.getElementById('product-price').value;
+        let productStock = document.getElementById('product-stock').value;
+
+        let productTable = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+        let newRow = productTable.insertRow();
+        newRow.insertCell(0).innerText = productName;
+        newRow.insertCell(1).innerText = productCategory;
+        newRow.insertCell(2).innerText = productPrice;
+        newRow.insertCell(3).innerText = productStock;
+
+        // Bersihkan form setelah submit
+        document.getElementById('product-form').reset();
+    });
+
+    // Simpan dan tampilkan data pelanggan
+    document.getElementById('customer-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let customerName = document.getElementById('customer-name').value;
+        let customerContact = document.getElementById('customer-contact').value;
+
+        let customerTable = document.getElementById('customer-table').getElementsByTagName('tbody')[0];
+        let newRow = customerTable.insertRow();
+        newRow.insertCell(0).innerText = customerName;
+        newRow.insertCell(1).innerText = customerContact;
+
+        // Bersihkan form setelah submit
+        document.getElementById('customer-form').reset();
+    });
+
+    // Simpan dan tampilkan data transaksi
+    document.getElementById('transaction-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let transactionProduct = document.getElementById('transaction-product').value;
+        let transactionQuantity = document.getElementById('transaction-quantity').value;
+        let transactionDate = new Date().toLocaleDateString();
+
+        let transactionTable = document.getElementById('transaction-table').getElementsByTagName('tbody')[0];
+        let newRow = transactionTable.insertRow();
+        newRow.insertCell(0).innerText = transactionProduct;
+        newRow.insertCell(1).innerText = transactionQuantity;
+        newRow.insertCell(2).innerText = transactionDate;
+
+        // Bersihkan form setelah submit
+        document.getElementById('transaction-form').reset();
+    });
+
+    // Menampilkan laporan stok produk
+    function showStockReport() {
+        let productTable = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+        let stockTable = document.getElementById('stock-table').getElementsByTagName('tbody')[0];
+        stockTable.innerHTML = ''; // Bersihkan tabel sebelum menampilkan data
+
+        for (let i = 0; i < productTable.rows.length; i++) {
+            let newRow = stockTable.insertRow();
+            newRow.insertCell(0).innerText = productTable.rows[i].cells[0].innerText;
+            newRow.insertCell(1).innerText = productTable.rows[i].cells[3].innerText;
+        }
+    }
+
+    // Menampilkan laporan data pelanggan
+    function showCustomerReport() {
+        let customerTable = document.getElementById('customer-table').getElementsByTagName('tbody')[0];
+        let customerReportTable = document.getElementById('customer-report-table').getElementsByTagName('tbody')[0];
+        customerReportTable.innerHTML = ''; // Bersihkan tabel sebelum menampilkan data
+
+        for (let i = 0; i < customerTable.rows.length; i++) {
+            let newRow = customerReportTable.insertRow();
+            newRow.insertCell(0).innerText = customerTable.rows[i].cells[0].innerText;
+            newRow.insertCell(1).innerText = customerTable.rows[i].cells[1].innerText;
+        }
+    }
+
+    // Pencarian produk berdasarkan nama
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let searchProduct = document.getElementById('search-product').value.toLowerCase();
+        let productTable = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+        let searchResultTable = document.getElementById('search-result-table').getElementsByTagName('tbody')[0];
+        searchResultTable.innerHTML = ''; // Bersihkan tabel hasil pencarian
+
+        for (let i = 0; i < productTable.rows.length; i++) {
+            if (productTable.rows[i].cells[0].innerText.toLowerCase().includes(searchProduct)) {
+                let newRow = searchResultTable.insertRow();
+                newRow.insertCell(0).innerText = productTable.rows[i].cells[0].innerText;
+                newRow.insertCell(1).innerText = productTable.rows[i].cells[1].innerText;
+                newRow.insertCell(2).innerText = productTable.rows[i].cells[2].innerText;
+                newRow.insertCell(3).innerText = productTable.rows[i].cells[3].innerText;
+            }
+        }
+    });
+
+    // Rekapitulasi penjualan bulanan
+    function generateMonthlyReport() {
+        let reportTable = document.getElementById('report-table').getElementsByTagName('tbody')[0];
+        // Proses laporan bulanan
+        let newRow = reportTable.insertRow();
+        newRow.insertCell(0).innerText = "Contoh Produk";
+        newRow.insertCell(1).innerText = 100;
+        newRow.insertCell(2).innerText = "Bulan Ini";
+    }
+
+    // Rekapitulasi penjualan tahunan
+    function generateYearlyReport() {
+        let reportTable = document.getElementById('report-table').getElementsByTagName('tbody')[0];
+        // Proses laporan tahunan
+        let newRow = reportTable.insertRow();
+        newRow.insertCell(0).innerText = "Contoh Produk";
+        newRow.insertCell(1).innerText = 1200;
+        newRow.insertCell(2).innerText = "Tahun Ini";
+    }
+</script>
+
+</body>
+</html>
